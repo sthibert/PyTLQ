@@ -1,0 +1,93 @@
+Presentation
+============
+
+PyTLQ is an original Python package for solving temporal logic queries, as
+defined by Chan [1] and corrected/extended by Samer and Veith [2, 3]. It uses
+the BDD-based functionalities of the PyNuSMV model-checking library [4] to
+efficiently implement such queries.
+
+
+Architecture and Functionalities
+--------------------------------
+
+The architecture of PyTLQ consists of four main modules, each one proposing
+specific functionalities.
+
+.. figure:: _static/architecture.png
+    :align: center
+    :width: 12cm
+
+**Parsing CTL Queries**
+
+In the first place, the *parser* module takes care of the parsing process. It
+provides the ``parse_ctlq`` function to parse input strings representing CTL
+queries, and returns corresponding abstract syntax trees (ASTs).
+
+**Checking the Membership to Fragment CTLQx**
+
+Secondly, the *checker* module provides the ``check_ctlqx`` and
+``non_terminal_ctlqx`` functions to verify whether the AST-based CTL query
+belongs to the syntactic fragment CTLQx [3] or not. It follows corresponding
+production rules to determine the membership to the fragment, and returns a
+truth value.
+
+**Solving CTL Queries**
+
+Then, the *solver* module - which is the core of PyTLQ - provides the
+``solve_ctlqx`` function that implements the extended Chan algorithm [3] to
+solve CTL queries that belong to fragment CTLQx in the considered SMV model.
+The function computes the unique set of solution states that represents an
+exact solution to the query in the model (if there is one).
+
+**Simplifying Solutions**
+
+Finally, if a simplification is required, the *simplifier* module takes care
+to transform the set of solution states - which is likely to be too complex -
+in a more understandable form. Practically, it provides the ``simplify``
+function that implements Chan's approximate conjunctive decomposition [1], and
+the ``project`` function which is a more general function used to project the
+solution on a list of variables of interest (that is, a subset of all the
+variables).
+
+
+Limitations
+-----------
+
+PyTLQ has four main limitations:
+
+1. Since the development of the main feature of PyTLQ - that is, the CTL query
+   solver - entirely relies on Samer and Veith's extended Chan algorithm, PyTLQ
+   suffers form the main limitation outlined in their paper (that is, the CTL
+   queries must belong to CTLQx fragment). Moreover, PyTLQ only considers CTL
+   queries, and not queries formed with other temporal logics. Finally, PyTLQ
+   only accepts queries with one occurrence of a single distinct placeholder.
+
+2. The error management being a limitation in PyNuSMV, and PyParsing raising
+   somewhat unclear exceptions, the standalone script of PyTLQ suffers from
+   poor error explanations.
+
+3. The projection and the adapted version of Chan's approximate conjunctive
+   decomposition algorithms cannot provide a simplified visualization of
+   boolean formulas. For example, a typical output has the following form:
+
+::
+
+    ((heat = TRUE  & start = TRUE) |
+     (heat = FALSE & start = TRUE) |
+     (heat = TRUE  & start = FALSE))
+
+|  Instead of being simply represented as:
+|
+
+::
+
+    (heat | start)
+
+4. In addition to the previous limitation, these two algorithms do not take the
+   ``DEFINE`` variables of the SMV models into account. ``DEFINE`` declarations
+   are used to make descriptions more concise in SMV models, thanks to a symbol
+   that is associated with a common expression. PyNuSMV not allowing to
+   retrieve those variables, we cannot take them into account in the projection
+   and simplification algorithms. Solutions in those cases are therefore not
+   "projectable/restrictable" to such variables and we might consequently loose
+   understandability.

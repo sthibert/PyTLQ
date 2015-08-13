@@ -1,0 +1,850 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>PyTLQ API &mdash; PyTLQ documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="PyTLQ documentation" href="index.html"/>
+        <link rel="next" title="References" href="references.html"/>
+        <link rel="prev" title="Getting Started" href="getting-started.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        
+
+        
+          <a href="index.html" class="icon icon-home"> PyTLQ
+        
+
+        
+        </a>
+
+        
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+        
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+          
+          
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="presentation.html">Presentation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="presentation.html#architecture-and-functionalities">Architecture and Functionalities</a></li>
+<li class="toctree-l2"><a class="reference internal" href="presentation.html#limitations">Limitations</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="getting-started.html">Getting Started</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="getting-started.html#input-language">Input Language</a></li>
+<li class="toctree-l2"><a class="reference internal" href="getting-started.html#installation">Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="getting-started.html#usage">Usage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="getting-started.html#example">Example</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="current reference internal" href="">PyTLQ API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#module-pytlq.ast"><code class="docutils literal"><span class="pre">ast</span></code> module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-pytlq.parser"><code class="docutils literal"><span class="pre">parser</span></code> module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-pytlq.checker"><code class="docutils literal"><span class="pre">checker</span></code> module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-pytlq.solver"><code class="docutils literal"><span class="pre">solver</span></code> module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-pytlq.simplifier"><code class="docutils literal"><span class="pre">simplifier</span></code> module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-pytlq.exception"><code class="docutils literal"><span class="pre">exception</span></code> module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-pytlq.utils"><code class="docutils literal"><span class="pre">utils</span></code> module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#example-script">Example Script</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="references.html">References</a></li>
+</ul>
+
+          
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">PyTLQ</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+    <li>PyTLQ API</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document">
+            
+  <div class="section" id="module-pytlq.__init__">
+<span id="pytlq-api"></span><h1>PyTLQ API<a class="headerlink" href="#module-pytlq.__init__" title="Permalink to this headline">¶</a></h1>
+<p>PyTLQ is composed of several modules, each one proposing some functionalities:</p>
+<ul class="simple">
+<li><a class="reference internal" href="#module-pytlq.ast" title="pytlq.ast"><code class="xref py py-mod docutils literal"><span class="pre">ast</span></code></a> defines classes to represent CTL formulas/queries as
+abstract syntax trees.</li>
+<li><a class="reference internal" href="#module-pytlq.parser" title="pytlq.parser"><code class="xref py py-mod docutils literal"><span class="pre">parser</span></code></a> provides functions to parse strings representing
+CTL queries.</li>
+<li><a class="reference internal" href="#module-pytlq.checker" title="pytlq.checker"><code class="xref py py-mod docutils literal"><span class="pre">checker</span></code></a> provides functions to check that CTL queries
+belong to syntactic fragment CTLQx.</li>
+<li><a class="reference internal" href="#module-pytlq.solver" title="pytlq.solver"><code class="xref py py-mod docutils literal"><span class="pre">solver</span></code></a> provides functions to solve CTL queries that
+belong to fragment CTLQx.</li>
+<li><a class="reference internal" href="#module-pytlq.simplifier" title="pytlq.simplifier"><code class="xref py py-mod docutils literal"><span class="pre">simplifier</span></code></a> provides functions to simplify the
+solutions returned by the solver.</li>
+<li><a class="reference internal" href="#module-pytlq.exception" title="pytlq.exception"><code class="xref py py-mod docutils literal"><span class="pre">exception</span></code></a> groups all the PyTLQ-related exceptions.</li>
+<li><a class="reference internal" href="#module-pytlq.utils" title="pytlq.utils"><code class="xref py py-mod docutils literal"><span class="pre">utils</span></code></a> provides classes and functions used by PyTLQ
+internals, and utilities for manipulating CTL formulas/queries.</li>
+</ul>
+<hr class="docutils" />
+<div class="section" id="module-pytlq.ast">
+<span id="ast-module"></span><h2><code class="xref py py-mod docutils literal"><span class="pre">ast</span></code> module<a class="headerlink" href="#module-pytlq.ast" title="Permalink to this headline">¶</a></h2>
+<p>The <a class="reference internal" href="#module-pytlq.ast" title="pytlq.ast"><code class="xref py py-mod docutils literal"><span class="pre">pytlq.ast</span></code></a> module defines classes to represent CTL formulas/queries
+as abstract syntax trees.</p>
+<dl class="class">
+<dt id="pytlq.ast.AST">
+<em class="property">class </em><code class="descclassname">pytlq.ast.</code><code class="descname">AST</code><a class="headerlink" href="#pytlq.ast.AST" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">tuple</span></code></p>
+<p>An abstract syntax tree.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="pytlq.ast.Placeholder">
+<em class="property">class </em><code class="descclassname">pytlq.ast.</code><code class="descname">Placeholder</code><a class="headerlink" href="#pytlq.ast.Placeholder" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#pytlq.ast.AST" title="pytlq.ast.AST"><code class="xref py py-class docutils literal"><span class="pre">pytlq.ast.AST</span></code></a>, <a class="reference internal" href="#pytlq.ast.Placeholder" title="pytlq.ast.Placeholder"><code class="xref py py-class docutils literal"><span class="pre">pytlq.ast.Placeholder</span></code></a></p>
+<p>A placeholder.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="pytlq.ast.TrueExp">
+<em class="property">class </em><code class="descclassname">pytlq.ast.</code><code class="descname">TrueExp</code><a class="headerlink" href="#pytlq.ast.TrueExp" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#pytlq.ast.AST" title="pytlq.ast.AST"><code class="xref py py-class docutils literal"><span class="pre">pytlq.ast.AST</span></code></a>, <a class="reference internal" href="#pytlq.ast.TrueExp" title="pytlq.ast.TrueExp"><code class="xref py py-class docutils literal"><span class="pre">pytlq.ast.TrueExp</span></code></a></p>
+<p>The True constant.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="pytlq.ast.FalseExp">
+<em class="property">class </em><code class="descclassname">pytlq.ast.</code><code class="descname">FalseExp</code><a class="headerlink" href="#pytlq.ast.FalseExp" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#pytlq.ast.AST" title="pytlq.ast.AST"><code class="xref py py-class docutils literal"><span class="pre">pytlq.ast.AST</span></code></a>, <a class="reference internal" href="#pytlq.ast.FalseExp" title="pytlq.ast.FalseExp"><code class="xref py py-class docutils literal"><span class="pre">pytlq.ast.FalseExp</span></code></a></p>
+<p>The False constant.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="pytlq.ast.Atom">
+<em class="property">class </em><code class="descclassname">pytlq.ast.</code><code class="descname">Atom</code><a class="headerlink" href="#pytlq.ast.Atom" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#pytlq.ast.AST" title="pytlq.ast.AST"><code class="xref py py-class docutils literal"><span class="pre">pytlq.ast.AST</span></code></a>, <a class="reference internal" href="#pytlq.ast.Atom" title="pytlq.ast.Atom"><code class="xref py py-class docutils literal"><span class="pre">pytlq.ast.Atom</span></code></a></p>
+<p>An atomic proposition.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="pytlq.ast.Not">
+<em class="property">class </em><code class="descclassname">pytlq.ast.</code><code class="descname">Not</code><a class="headerlink" href="#pytlq.ast.Not" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#pytlq.ast.AST" title="pytlq.ast.AST"><code class="xref py py-class docutils literal"><span class="pre">pytlq.ast.AST</span></code></a>, <a class="reference internal" href="#pytlq.ast.Not" title="pytlq.ast.Not"><code class="xref py py-class docutils literal"><span class="pre">pytlq.ast.Not</span></code></a></p>
+<p>The ~ (not) operator.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="pytlq.ast.And">
+<em class="property">class </em><code class="descclassname">pytlq.ast.</code><code class="descname">And</code><a class="headerlink" href="#pytlq.ast.And" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#pytlq.ast.AST" title="pytlq.ast.AST"><code class="xref py py-class docutils literal"><span class="pre">pytlq.ast.AST</span></code></a>, <a class="reference internal" href="#pytlq.ast.And" title="pytlq.ast.And"><code class="xref py py-class docutils literal"><span class="pre">pytlq.ast.And</span></code></a></p>
+<p>The &amp; (and) operator.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="pytlq.ast.Or">
+<em class="property">class </em><code class="descclassname">pytlq.ast.</code><code class="descname">Or</code><a class="headerlink" href="#pytlq.ast.Or" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#pytlq.ast.AST" title="pytlq.ast.AST"><code class="xref py py-class docutils literal"><span class="pre">pytlq.ast.AST</span></code></a>, <a class="reference internal" href="#pytlq.ast.Or" title="pytlq.ast.Or"><code class="xref py py-class docutils literal"><span class="pre">pytlq.ast.Or</span></code></a></p>
+<p>The | (or) operator.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="pytlq.ast.Imply">
+<em class="property">class </em><code class="descclassname">pytlq.ast.</code><code class="descname">Imply</code><a class="headerlink" href="#pytlq.ast.Imply" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#pytlq.ast.AST" title="pytlq.ast.AST"><code class="xref py py-class docutils literal"><span class="pre">pytlq.ast.AST</span></code></a>, <a class="reference internal" href="#pytlq.ast.Imply" title="pytlq.ast.Imply"><code class="xref py py-class docutils literal"><span class="pre">pytlq.ast.Imply</span></code></a></p>
+<p>The -&gt; (imply) operator.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="pytlq.ast.Iff">
+<em class="property">class </em><code class="descclassname">pytlq.ast.</code><code class="descname">Iff</code><a class="headerlink" href="#pytlq.ast.Iff" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#pytlq.ast.AST" title="pytlq.ast.AST"><code class="xref py py-class docutils literal"><span class="pre">pytlq.ast.AST</span></code></a>, <a class="reference internal" href="#pytlq.ast.Iff" title="pytlq.ast.Iff"><code class="xref py py-class docutils literal"><span class="pre">pytlq.ast.Iff</span></code></a></p>
+<p>The &lt;-&gt; (iff) operator.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="pytlq.ast.AX">
+<em class="property">class </em><code class="descclassname">pytlq.ast.</code><code class="descname">AX</code><a class="headerlink" href="#pytlq.ast.AX" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#pytlq.ast.AST" title="pytlq.ast.AST"><code class="xref py py-class docutils literal"><span class="pre">pytlq.ast.AST</span></code></a>, <a class="reference internal" href="#pytlq.ast.AX" title="pytlq.ast.AX"><code class="xref py py-class docutils literal"><span class="pre">pytlq.ast.AX</span></code></a></p>
+<p>The &#8220;next&#8221; operator (for all paths).</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="pytlq.ast.AF">
+<em class="property">class </em><code class="descclassname">pytlq.ast.</code><code class="descname">AF</code><a class="headerlink" href="#pytlq.ast.AF" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#pytlq.ast.AST" title="pytlq.ast.AST"><code class="xref py py-class docutils literal"><span class="pre">pytlq.ast.AST</span></code></a>, <a class="reference internal" href="#pytlq.ast.AF" title="pytlq.ast.AF"><code class="xref py py-class docutils literal"><span class="pre">pytlq.ast.AF</span></code></a></p>
+<p>The &#8220;eventually&#8221; operator (for all paths).</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="pytlq.ast.AG">
+<em class="property">class </em><code class="descclassname">pytlq.ast.</code><code class="descname">AG</code><a class="headerlink" href="#pytlq.ast.AG" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#pytlq.ast.AST" title="pytlq.ast.AST"><code class="xref py py-class docutils literal"><span class="pre">pytlq.ast.AST</span></code></a>, <a class="reference internal" href="#pytlq.ast.AG" title="pytlq.ast.AG"><code class="xref py py-class docutils literal"><span class="pre">pytlq.ast.AG</span></code></a></p>
+<p>The &#8220;globally&#8221; operator (for all paths).</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="pytlq.ast.AU">
+<em class="property">class </em><code class="descclassname">pytlq.ast.</code><code class="descname">AU</code><a class="headerlink" href="#pytlq.ast.AU" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#pytlq.ast.AST" title="pytlq.ast.AST"><code class="xref py py-class docutils literal"><span class="pre">pytlq.ast.AST</span></code></a>, <a class="reference internal" href="#pytlq.ast.AU" title="pytlq.ast.AU"><code class="xref py py-class docutils literal"><span class="pre">pytlq.ast.AU</span></code></a></p>
+<p>The &#8220;strong until&#8221; operator (for all paths).</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="pytlq.ast.AW">
+<em class="property">class </em><code class="descclassname">pytlq.ast.</code><code class="descname">AW</code><a class="headerlink" href="#pytlq.ast.AW" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#pytlq.ast.AST" title="pytlq.ast.AST"><code class="xref py py-class docutils literal"><span class="pre">pytlq.ast.AST</span></code></a>, <a class="reference internal" href="#pytlq.ast.AW" title="pytlq.ast.AW"><code class="xref py py-class docutils literal"><span class="pre">pytlq.ast.AW</span></code></a></p>
+<p>The &#8220;weak until&#8221; operator (for all paths).</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="pytlq.ast.EX">
+<em class="property">class </em><code class="descclassname">pytlq.ast.</code><code class="descname">EX</code><a class="headerlink" href="#pytlq.ast.EX" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#pytlq.ast.AST" title="pytlq.ast.AST"><code class="xref py py-class docutils literal"><span class="pre">pytlq.ast.AST</span></code></a>, <a class="reference internal" href="#pytlq.ast.EX" title="pytlq.ast.EX"><code class="xref py py-class docutils literal"><span class="pre">pytlq.ast.EX</span></code></a></p>
+<p>The &#8220;next&#8221; operator (for some path).</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="pytlq.ast.EF">
+<em class="property">class </em><code class="descclassname">pytlq.ast.</code><code class="descname">EF</code><a class="headerlink" href="#pytlq.ast.EF" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#pytlq.ast.AST" title="pytlq.ast.AST"><code class="xref py py-class docutils literal"><span class="pre">pytlq.ast.AST</span></code></a>, <a class="reference internal" href="#pytlq.ast.EF" title="pytlq.ast.EF"><code class="xref py py-class docutils literal"><span class="pre">pytlq.ast.EF</span></code></a></p>
+<p>The &#8220;eventually&#8221; operator (for some path).</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="pytlq.ast.EG">
+<em class="property">class </em><code class="descclassname">pytlq.ast.</code><code class="descname">EG</code><a class="headerlink" href="#pytlq.ast.EG" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#pytlq.ast.AST" title="pytlq.ast.AST"><code class="xref py py-class docutils literal"><span class="pre">pytlq.ast.AST</span></code></a>, <a class="reference internal" href="#pytlq.ast.EG" title="pytlq.ast.EG"><code class="xref py py-class docutils literal"><span class="pre">pytlq.ast.EG</span></code></a></p>
+<p>The &#8220;globally&#8221; operator (for some path).</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="pytlq.ast.EU">
+<em class="property">class </em><code class="descclassname">pytlq.ast.</code><code class="descname">EU</code><a class="headerlink" href="#pytlq.ast.EU" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#pytlq.ast.AST" title="pytlq.ast.AST"><code class="xref py py-class docutils literal"><span class="pre">pytlq.ast.AST</span></code></a>, <a class="reference internal" href="#pytlq.ast.EU" title="pytlq.ast.EU"><code class="xref py py-class docutils literal"><span class="pre">pytlq.ast.EU</span></code></a></p>
+<p>The &#8220;strong until&#8221; operator (for some path).</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="pytlq.ast.EW">
+<em class="property">class </em><code class="descclassname">pytlq.ast.</code><code class="descname">EW</code><a class="headerlink" href="#pytlq.ast.EW" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#pytlq.ast.AST" title="pytlq.ast.AST"><code class="xref py py-class docutils literal"><span class="pre">pytlq.ast.AST</span></code></a>, <a class="reference internal" href="#pytlq.ast.EW" title="pytlq.ast.EW"><code class="xref py py-class docutils literal"><span class="pre">pytlq.ast.EW</span></code></a></p>
+<p>The &#8220;weak until&#8221; operator (for some path).</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="pytlq.ast.AoU">
+<em class="property">class </em><code class="descclassname">pytlq.ast.</code><code class="descname">AoU</code><a class="headerlink" href="#pytlq.ast.AoU" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#pytlq.ast.AST" title="pytlq.ast.AST"><code class="xref py py-class docutils literal"><span class="pre">pytlq.ast.AST</span></code></a>, <a class="reference internal" href="#pytlq.ast.AoU" title="pytlq.ast.AoU"><code class="xref py py-class docutils literal"><span class="pre">pytlq.ast.AoU</span></code></a></p>
+<p>The &#8220;overlapping strong until&#8221; operator (for all paths).</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="pytlq.ast.AoW">
+<em class="property">class </em><code class="descclassname">pytlq.ast.</code><code class="descname">AoW</code><a class="headerlink" href="#pytlq.ast.AoW" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#pytlq.ast.AST" title="pytlq.ast.AST"><code class="xref py py-class docutils literal"><span class="pre">pytlq.ast.AST</span></code></a>, <a class="reference internal" href="#pytlq.ast.AoW" title="pytlq.ast.AoW"><code class="xref py py-class docutils literal"><span class="pre">pytlq.ast.AoW</span></code></a></p>
+<p>The &#8220;overlapping weak until&#8221; operator (for all paths).</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="pytlq.ast.AdU">
+<em class="property">class </em><code class="descclassname">pytlq.ast.</code><code class="descname">AdU</code><a class="headerlink" href="#pytlq.ast.AdU" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#pytlq.ast.AST" title="pytlq.ast.AST"><code class="xref py py-class docutils literal"><span class="pre">pytlq.ast.AST</span></code></a>, <a class="reference internal" href="#pytlq.ast.AdU" title="pytlq.ast.AdU"><code class="xref py py-class docutils literal"><span class="pre">pytlq.ast.AdU</span></code></a></p>
+<p>The &#8220;disjoint strong until&#8221; operator (for all paths).</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="pytlq.ast.AdW">
+<em class="property">class </em><code class="descclassname">pytlq.ast.</code><code class="descname">AdW</code><a class="headerlink" href="#pytlq.ast.AdW" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#pytlq.ast.AST" title="pytlq.ast.AST"><code class="xref py py-class docutils literal"><span class="pre">pytlq.ast.AST</span></code></a>, <a class="reference internal" href="#pytlq.ast.AdW" title="pytlq.ast.AdW"><code class="xref py py-class docutils literal"><span class="pre">pytlq.ast.AdW</span></code></a></p>
+<p>The &#8220;disjoint weak until&#8221; operator (for all paths).</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="pytlq.ast.EoU">
+<em class="property">class </em><code class="descclassname">pytlq.ast.</code><code class="descname">EoU</code><a class="headerlink" href="#pytlq.ast.EoU" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#pytlq.ast.AST" title="pytlq.ast.AST"><code class="xref py py-class docutils literal"><span class="pre">pytlq.ast.AST</span></code></a>, <a class="reference internal" href="#pytlq.ast.EoU" title="pytlq.ast.EoU"><code class="xref py py-class docutils literal"><span class="pre">pytlq.ast.EoU</span></code></a></p>
+<p>The &#8220;overlapping strong until&#8221; operator (for some path).</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="pytlq.ast.EoW">
+<em class="property">class </em><code class="descclassname">pytlq.ast.</code><code class="descname">EoW</code><a class="headerlink" href="#pytlq.ast.EoW" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#pytlq.ast.AST" title="pytlq.ast.AST"><code class="xref py py-class docutils literal"><span class="pre">pytlq.ast.AST</span></code></a>, <a class="reference internal" href="#pytlq.ast.EoW" title="pytlq.ast.EoW"><code class="xref py py-class docutils literal"><span class="pre">pytlq.ast.EoW</span></code></a></p>
+<p>The &#8220;overlapping weak until&#8221; operator (for some path).</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="pytlq.ast.EdU">
+<em class="property">class </em><code class="descclassname">pytlq.ast.</code><code class="descname">EdU</code><a class="headerlink" href="#pytlq.ast.EdU" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#pytlq.ast.AST" title="pytlq.ast.AST"><code class="xref py py-class docutils literal"><span class="pre">pytlq.ast.AST</span></code></a>, <a class="reference internal" href="#pytlq.ast.EdU" title="pytlq.ast.EdU"><code class="xref py py-class docutils literal"><span class="pre">pytlq.ast.EdU</span></code></a></p>
+<p>The &#8220;disjoint strong until&#8221; operator (for some path).</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="pytlq.ast.EdW">
+<em class="property">class </em><code class="descclassname">pytlq.ast.</code><code class="descname">EdW</code><a class="headerlink" href="#pytlq.ast.EdW" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#pytlq.ast.AST" title="pytlq.ast.AST"><code class="xref py py-class docutils literal"><span class="pre">pytlq.ast.AST</span></code></a>, <a class="reference internal" href="#pytlq.ast.EdW" title="pytlq.ast.EdW"><code class="xref py py-class docutils literal"><span class="pre">pytlq.ast.EdW</span></code></a></p>
+<p>The &#8220;disjoint weak until&#8221; operator (for some path).</p>
+</dd></dl>
+
+</div>
+<hr class="docutils" />
+<div class="section" id="module-pytlq.parser">
+<span id="parser-module"></span><h2><code class="xref py py-mod docutils literal"><span class="pre">parser</span></code> module<a class="headerlink" href="#module-pytlq.parser" title="Permalink to this headline">¶</a></h2>
+<p>The <a class="reference internal" href="#module-pytlq.parser" title="pytlq.parser"><code class="xref py py-mod docutils literal"><span class="pre">pytlq.parser</span></code></a> module provides functions to parse strings representing
+CTL queries.</p>
+<dl class="function">
+<dt id="pytlq.parser.parse_ctlq">
+<code class="descclassname">pytlq.parser.</code><code class="descname">parse_ctlq</code><span class="sig-paren">(</span><em>query</em><span class="sig-paren">)</span><a class="headerlink" href="#pytlq.parser.parse_ctlq" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parse <cite>query</cite> and return its corresponding AST.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>query</strong> &#8211; a string representing a CTL query (that is, a CTL formula
+where some subformulas are replaced by the special symbol <code class="docutils literal"><span class="pre">?</span></code>, called
+placeholder)</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">an AST-based CTL query</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Raise:</th><td class="field-body">a <code class="xref py py-exc docutils literal"><span class="pre">pyparsing.ParseException</span></code> if a parsing error occurs</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raise:</th><td class="field-body">a <a class="reference internal" href="#pytlq.exception.NoPlaceholderError" title="pytlq.exception.NoPlaceholderError"><code class="xref py py-exc docutils literal"><span class="pre">pytlq.exception.NoPlaceholderError</span></code></a> if <cite>query</cite> does not
+contain any placeholder</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The parser uses <a class="reference internal" href="#module-pytlq.ast" title="pytlq.ast"><code class="xref py py-mod docutils literal"><span class="pre">pytlq.ast</span></code></a> module&#8217;s classes to build ASTs.</p>
+</div>
+</dd></dl>
+
+</div>
+<hr class="docutils" />
+<div class="section" id="module-pytlq.checker">
+<span id="checker-module"></span><h2><code class="xref py py-mod docutils literal"><span class="pre">checker</span></code> module<a class="headerlink" href="#module-pytlq.checker" title="Permalink to this headline">¶</a></h2>
+<p>The <a class="reference internal" href="#module-pytlq.checker" title="pytlq.checker"><code class="xref py py-mod docutils literal"><span class="pre">pytlq.checker</span></code></a> module provides functions to check that CTL queries
+belong to syntactic fragment CTLQx.</p>
+<dl class="function">
+<dt id="pytlq.checker.check_ctlqx">
+<code class="descclassname">pytlq.checker.</code><code class="descname">check_ctlqx</code><span class="sig-paren">(</span><em>query</em><span class="sig-paren">)</span><a class="headerlink" href="#pytlq.checker.check_ctlqx" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check that <cite>query</cite> belongs to fragment CTLQx.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>query</strong> &#8211; an AST-based CTL query <strong>in negation normal form</strong></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">True if <cite>query</cite> belongs to fragment CTLQx, False otherwise</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">See <a class="reference internal" href="#pytlq.utils.negation_normal_form" title="pytlq.utils.negation_normal_form"><code class="xref py py-func docutils literal"><span class="pre">pytlq.utils.negation_normal_form()</span></code></a> for the
+transformation in negation normal form.</p>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="pytlq.checker.non_terminal_ctlqx">
+<code class="descclassname">pytlq.checker.</code><code class="descname">non_terminal_ctlqx</code><span class="sig-paren">(</span><em>query</em><span class="sig-paren">)</span><a class="headerlink" href="#pytlq.checker.non_terminal_ctlqx" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the number of the non-terminal (defined in the production rules,
+adapted from Samer and Veith&#8217;s definition at TIME&#8216;05) in which <cite>query</cite>
+stands if <cite>query</cite> belongs to fragment CTLQx, 0 otherwise.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>query</strong> &#8211; an AST-based CTL query <strong>with exactly one occurrence of the
+placeholder</strong></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">a number between 1 and 10 (representing a non-terminal) if <cite>query</cite>
+belongs to fragment CTLQx, 0 otherwise</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">See <a class="reference internal" href="#pytlq.utils.count_placeholders" title="pytlq.utils.count_placeholders"><code class="xref py py-func docutils literal"><span class="pre">pytlq.utils.count_placeholders()</span></code></a> for the verification
+that <cite>query</cite> contains exactly one occurrence of the placeholder.</p>
+</div>
+</dd></dl>
+
+</div>
+<hr class="docutils" />
+<div class="section" id="module-pytlq.solver">
+<span id="solver-module"></span><h2><code class="xref py py-mod docutils literal"><span class="pre">solver</span></code> module<a class="headerlink" href="#module-pytlq.solver" title="Permalink to this headline">¶</a></h2>
+<p>The <a class="reference internal" href="#module-pytlq.solver" title="pytlq.solver"><code class="xref py py-mod docutils literal"><span class="pre">pytlq.solver</span></code></a> module provides functions to solve CTL queries that
+belong to fragment CTLQx.</p>
+<dl class="function">
+<dt id="pytlq.solver.solve_ctlqx">
+<code class="descclassname">pytlq.solver.</code><code class="descname">solve_ctlqx</code><span class="sig-paren">(</span><em>fsm</em>, <em>query</em><span class="sig-paren">)</span><a class="headerlink" href="#pytlq.solver.solve_ctlqx" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute the unique set of solution states of <cite>fsm</cite> to <cite>query</cite> at the
+initial states of <cite>fsm</cite>, as defined by Samer and Veith at TIME&#8216;05.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>fsm</strong> &#8211; the concerned FSM</li>
+<li><strong>query</strong> &#8211; an AST-based CTL query <strong>that belongs to fragment CTLQx</strong></li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">the unique set of solution states of <cite>fsm</cite> to <cite>query</cite> at the
+initial states of <cite>fsm</cite></p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><code class="xref py py-class docutils literal"><span class="pre">pynusmv.dd.BDD</span></code></p>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The characteristic function of the output is an exact solution to
+<cite>query</cite> in <cite>fsm</cite>.</p>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">See <a class="reference internal" href="#pytlq.checker.check_ctlqx" title="pytlq.checker.check_ctlqx"><code class="xref py py-func docutils literal"><span class="pre">pytlq.checker.check_ctlqx()</span></code></a> for the verification that
+<cite>query</cite> belongs to fragment CTLQx.</p>
+</div>
+</dd></dl>
+
+</div>
+<hr class="docutils" />
+<div class="section" id="module-pytlq.simplifier">
+<span id="simplifier-module"></span><h2><code class="xref py py-mod docutils literal"><span class="pre">simplifier</span></code> module<a class="headerlink" href="#module-pytlq.simplifier" title="Permalink to this headline">¶</a></h2>
+<p>The <a class="reference internal" href="#module-pytlq.simplifier" title="pytlq.simplifier"><code class="xref py py-mod docutils literal"><span class="pre">pytlq.simplifier</span></code></a> module provides functions to simplify the solutions
+returned by the solver.</p>
+<dl class="function">
+<dt id="pytlq.simplifier.project">
+<code class="descclassname">pytlq.simplifier.</code><code class="descname">project</code><span class="sig-paren">(</span><em>fsm</em>, <em>states</em>, <em>variables=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pytlq.simplifier.project" title="Permalink to this definition">¶</a></dt>
+<dd><p>Project <cite>states</cite> on <cite>variables</cite> (in other words, enumerate all the possible
+values of the variables in <cite>variables</cite>, in all states of <cite>states</cite>).</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>fsm</strong> &#8211; the concerned FSM</li>
+<li><strong>states</strong> &#8211; a set of states</li>
+<li><strong>variables</strong> &#8211; the list of variables on which <cite>states</cite> is projected (by
+default: all the variables)</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">a String representing the projection of <cite>states</cite> on the variables
+of <cite>variables</cite></p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Raise:</th><td class="field-body"><p class="first last">a <a class="reference internal" href="#pytlq.exception.VariableNotInModelError" title="pytlq.exception.VariableNotInModelError"><code class="xref py py-exc docutils literal"><span class="pre">pytlq.exception.VariableNotInModelError</span></code></a> if a variable of
+<cite>variables</cite> is not present in the model</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="pytlq.simplifier.simplify">
+<code class="descclassname">pytlq.simplifier.</code><code class="descname">simplify</code><span class="sig-paren">(</span><em>fsm</em>, <em>states</em>, <em>maximum=1</em>, <em>variables=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pytlq.simplifier.simplify" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute the approximate conjunctive decomposition of <cite>states</cite>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>fsm</strong> &#8211; the concerned FSM</li>
+<li><strong>states</strong> &#8211; a set of states</li>
+<li><strong>maximum</strong> &#8211; the maximum number of variables that must appear in the
+conjuncts of the approximate conjunctive decomposition (by default: 1)</li>
+<li><strong>variables</strong> &#8211; the list of variables to which the solution is restricted
+(by default: all the variables)</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">a String representing the approximate conjunctive decomposition
+of <cite>states</cite>, if a simplification is possible</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Raise:</th><td class="field-body"><p class="first">a <a class="reference internal" href="#pytlq.exception.ValueOutOfBoundsError" title="pytlq.exception.ValueOutOfBoundsError"><code class="xref py py-exc docutils literal"><span class="pre">pytlq.exception.ValueOutOfBoundsError</span></code></a> if <cite>maximum</cite> is not
+in the correct bounds</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raise:</th><td class="field-body"><p class="first last">a <a class="reference internal" href="#pytlq.exception.VariableNotInModelError" title="pytlq.exception.VariableNotInModelError"><code class="xref py py-exc docutils literal"><span class="pre">pytlq.exception.VariableNotInModelError</span></code></a> if a variable of
+<cite>variables</cite> is not present in the model</p>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This function is adapted from Chan&#8217;s approximate conjunctive
+decomposition of a propositional formula, defined at CAV 2000.</p>
+</div>
+</dd></dl>
+
+</div>
+<hr class="docutils" />
+<div class="section" id="module-pytlq.exception">
+<span id="exception-module"></span><h2><code class="xref py py-mod docutils literal"><span class="pre">exception</span></code> module<a class="headerlink" href="#module-pytlq.exception" title="Permalink to this headline">¶</a></h2>
+<p>The <a class="reference internal" href="#module-pytlq.exception" title="pytlq.exception"><code class="xref py py-mod docutils literal"><span class="pre">pytlq.exception</span></code></a> module groups all the PyTLQ-related exceptions.</p>
+<dl class="exception">
+<dt id="pytlq.exception.PyTLQError">
+<em class="property">exception </em><code class="descclassname">pytlq.exception.</code><code class="descname">PyTLQError</code><a class="headerlink" href="#pytlq.exception.PyTLQError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">Exception</span></code></p>
+<p>Base class for PyTLQ exceptions.</p>
+</dd></dl>
+
+<dl class="exception">
+<dt id="pytlq.exception.NoPlaceholderError">
+<em class="property">exception </em><code class="descclassname">pytlq.exception.</code><code class="descname">NoPlaceholderError</code><a class="headerlink" href="#pytlq.exception.NoPlaceholderError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#pytlq.exception.PyTLQError" title="pytlq.exception.PyTLQError"><code class="xref py py-class docutils literal"><span class="pre">pytlq.exception.PyTLQError</span></code></a></p>
+<p>Exception raised when there is no placeholder in CTL query.</p>
+</dd></dl>
+
+<dl class="exception">
+<dt id="pytlq.exception.ValueOutOfBoundsError">
+<em class="property">exception </em><code class="descclassname">pytlq.exception.</code><code class="descname">ValueOutOfBoundsError</code><a class="headerlink" href="#pytlq.exception.ValueOutOfBoundsError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#pytlq.exception.PyTLQError" title="pytlq.exception.PyTLQError"><code class="xref py py-class docutils literal"><span class="pre">pytlq.exception.PyTLQError</span></code></a></p>
+<p>Exception raised when the input value is out of bounds.</p>
+</dd></dl>
+
+<dl class="exception">
+<dt id="pytlq.exception.VariableNotInModelError">
+<em class="property">exception </em><code class="descclassname">pytlq.exception.</code><code class="descname">VariableNotInModelError</code><a class="headerlink" href="#pytlq.exception.VariableNotInModelError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#pytlq.exception.PyTLQError" title="pytlq.exception.PyTLQError"><code class="xref py py-class docutils literal"><span class="pre">pytlq.exception.PyTLQError</span></code></a></p>
+<p>Exception raised when a variable is not present in the model.</p>
+</dd></dl>
+
+</div>
+<hr class="docutils" />
+<div class="section" id="module-pytlq.utils">
+<span id="utils-module"></span><h2><code class="xref py py-mod docutils literal"><span class="pre">utils</span></code> module<a class="headerlink" href="#module-pytlq.utils" title="Permalink to this headline">¶</a></h2>
+<p>The <a class="reference internal" href="#module-pytlq.utils" title="pytlq.utils"><code class="xref py py-mod docutils literal"><span class="pre">pytlq.utils</span></code></a> module provides classes and functions used by PyTLQ
+internals, and utilities for manipulating CTL formulas/queries.</p>
+<dl class="class">
+<dt id="pytlq.utils.HashableDict">
+<em class="property">class </em><code class="descclassname">pytlq.utils.</code><code class="descname">HashableDict</code><a class="headerlink" href="#pytlq.utils.HashableDict" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">dict</span></code></p>
+<p>Define a hashable dictionary.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="pytlq.utils.ast_to_spec">
+<code class="descclassname">pytlq.utils.</code><code class="descname">ast_to_spec</code><span class="sig-paren">(</span><em>ast</em><span class="sig-paren">)</span><a class="headerlink" href="#pytlq.utils.ast_to_spec" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a PyNuSMV specification representing <cite>ast</cite>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>ast</strong> &#8211; an AST-based CTL formula</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">a PyNuSMV specification representing <cite>ast</cite></td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><code class="xref py py-class docutils literal"><span class="pre">pynusmv.prop.Spec</span></code></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raise:</th><td class="field-body">a <code class="xref py py-exc docutils literal"><span class="pre">NotImplementedError</span></code> if an operator is not implemented</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="pytlq.utils.bdd_to_set">
+<code class="descclassname">pytlq.utils.</code><code class="descname">bdd_to_set</code><span class="sig-paren">(</span><em>fsm</em>, <em>bdd</em><span class="sig-paren">)</span><a class="headerlink" href="#pytlq.utils.bdd_to_set" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a Set representing <cite>bdd</cite>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>fsm</strong> &#8211; the concerned FSM</li>
+<li><strong>bdd</strong> &#8211; a <code class="xref py py-class docutils literal"><span class="pre">pynusmv.dd.BDD</span></code> representing a set of states</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">a Set representing <cite>bdd</cite></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="pytlq.utils.negation_normal_form">
+<code class="descclassname">pytlq.utils.</code><code class="descname">negation_normal_form</code><span class="sig-paren">(</span><em>query</em><span class="sig-paren">)</span><a class="headerlink" href="#pytlq.utils.negation_normal_form" title="Permalink to this definition">¶</a></dt>
+<dd><p>Transform <cite>query</cite> in negation normal form.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>query</strong> &#8211; an AST-based CTL query</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">an AST-based CTL query in negation normal form</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Raise:</th><td class="field-body">a <code class="xref py py-exc docutils literal"><span class="pre">NotImplementedError</span></code> if an operator is not implemented</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="pytlq.utils.replace_placeholder">
+<code class="descclassname">pytlq.utils.</code><code class="descname">replace_placeholder</code><span class="sig-paren">(</span><em>query</em>, <em>formula</em><span class="sig-paren">)</span><a class="headerlink" href="#pytlq.utils.replace_placeholder" title="Permalink to this definition">¶</a></dt>
+<dd><p>Replace all the occurrences of the placeholder of <cite>query</cite> with <cite>formula</cite>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>query</strong> &#8211; an AST-based CTL query</li>
+<li><strong>formula</strong> &#8211; an AST-based CTL formula</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">an AST-based CTL formula</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Raise:</th><td class="field-body"><p class="first last">a <code class="xref py py-exc docutils literal"><span class="pre">NotImplementedError</span></code> if an operator is not implemented</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="pytlq.utils.count_placeholders">
+<code class="descclassname">pytlq.utils.</code><code class="descname">count_placeholders</code><span class="sig-paren">(</span><em>query</em>, <em>counter=0</em><span class="sig-paren">)</span><a class="headerlink" href="#pytlq.utils.count_placeholders" title="Permalink to this definition">¶</a></dt>
+<dd><p>Count how many occurrences of the placeholder there are in <cite>query</cite>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>query</strong> &#8211; an AST-based CTL query</li>
+<li><strong>counter</strong> &#8211; the counter (an accumulator variable)</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">the number of occurrences of the placeholder in <cite>query</cite></p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Raise:</th><td class="field-body"><p class="first last">a <code class="xref py py-exc docutils literal"><span class="pre">NotImplementedError</span></code> if an operator is not implemented</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="pytlq.utils.path_to_placeholder">
+<code class="descclassname">pytlq.utils.</code><code class="descname">path_to_placeholder</code><span class="sig-paren">(</span><em>query</em><span class="sig-paren">)</span><a class="headerlink" href="#pytlq.utils.path_to_placeholder" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute the path from the root of <cite>query</cite> to the placeholder.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>query</strong> &#8211; an AST-based CTL query <strong>with exactly one occurrence of the
+placeholder</strong></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">a list of strings representing the path from the root of the AST
+to the placeholder</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Raise:</th><td class="field-body">a <code class="xref py py-exc docutils literal"><span class="pre">NotImplementedError</span></code> if an operator is not implemented</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">See <a class="reference internal" href="#pytlq.utils.count_placeholders" title="pytlq.utils.count_placeholders"><code class="xref py py-func docutils literal"><span class="pre">pytlq.utils.count_placeholders()</span></code></a> for the verification
+that <cite>query</cite> contains exactly one occurrence of the placeholder.</p>
+</div>
+</dd></dl>
+
+</div>
+<hr class="docutils" />
+<div class="section" id="example-script">
+<h2>Example Script<a class="headerlink" href="#example-script" title="Permalink to this headline">¶</a></h2>
+<p>Provided <code class="docutils literal"><span class="pre">query</span></code>, <code class="docutils literal"><span class="pre">model_path</span></code>, and <code class="docutils literal"><span class="pre">order_path</span></code>, here is an example of a
+temporal logic query solver using the functions defined in the PyTLQ API.</p>
+<div class="highlight-python"><div class="highlight"><pre>from pynusmv.init import init_nusmv
+from pynusmv.glob import load, compute_model, prop_database
+
+from pytlq.parser import parse_ctlq
+from pytlq.checker import check_ctlqx
+from pytlq.solver import solve_ctlqx
+from pytlq.simplifier import project, simplify
+from pytlq.utils import negation_normal_form
+
+# Parse `query` and transform it in NNF.
+ast = negation_normal_form(parse_ctlq(query))
+
+# Check that `query` belongs to fragment CTLQx.
+if check_ctlqx(ast):
+
+    # Initialize NuSMV.
+    with init_nusmv():
+
+        # Load model from `model_path`.
+        load(model_path)
+        # Check if an order file is given.
+        if order_path:
+            # Build model with pre-calculated variable ordering.
+            compute_model(variables_ordering=order_path)
+        else:
+            # Build model.
+            compute_model()
+        # Retrieve FSM of the model.
+        fsm = prop_database().master.bddFsm
+
+        # Solve `query` in `fsm`.
+        solution = solve_ctlqx(fsm, ast)
+
+        # Project solution.
+        projection = project(fsm, solution, &lt;list_of_variables&gt;)
+
+        # Simplify solution.
+        simplification = simplify(fsm, solution, &lt;n&gt;, &lt;list_of_variables&gt;)
+</pre></div>
+</div>
+<p>With <code class="docutils literal"><span class="pre">&lt;list_of_variables&gt;</span></code> representing the list of variables of interest (in
+the form of strings), and <code class="docutils literal"><span class="pre">&lt;n&gt;</span></code> the maximum number of variables that must
+appear in the subsets of the solution set.</p>
+</div>
+</div>
+
+
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="references.html" class="btn btn-neutral float-right" title="References" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="getting-started.html" class="btn btn-neutral" title="Getting Started" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, Simon Thibert.
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'0.1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

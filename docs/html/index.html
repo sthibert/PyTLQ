@@ -1,0 +1,232 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>PyTLQ: A Python Package for Solving Temporal Logic Queries &mdash; PyTLQ documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="PyTLQ documentation" href="#"/>
+        <link rel="next" title="Presentation" href="presentation.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        
+
+        
+          <a href="#" class="icon icon-home"> PyTLQ
+        
+
+        
+        </a>
+
+        
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+        
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+          
+          
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="presentation.html">Presentation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="presentation.html#architecture-and-functionalities">Architecture and Functionalities</a></li>
+<li class="toctree-l2"><a class="reference internal" href="presentation.html#limitations">Limitations</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="getting-started.html">Getting Started</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="getting-started.html#input-language">Input Language</a></li>
+<li class="toctree-l2"><a class="reference internal" href="getting-started.html#installation">Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="getting-started.html#usage">Usage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="getting-started.html#example">Example</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="pytlq-api.html">PyTLQ API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="pytlq-api.html#module-pytlq.ast"><code class="docutils literal"><span class="pre">ast</span></code> module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pytlq-api.html#module-pytlq.parser"><code class="docutils literal"><span class="pre">parser</span></code> module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pytlq-api.html#module-pytlq.checker"><code class="docutils literal"><span class="pre">checker</span></code> module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pytlq-api.html#module-pytlq.solver"><code class="docutils literal"><span class="pre">solver</span></code> module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pytlq-api.html#module-pytlq.simplifier"><code class="docutils literal"><span class="pre">simplifier</span></code> module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pytlq-api.html#module-pytlq.exception"><code class="docutils literal"><span class="pre">exception</span></code> module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pytlq-api.html#module-pytlq.utils"><code class="docutils literal"><span class="pre">utils</span></code> module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pytlq-api.html#example-script">Example Script</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="references.html">References</a></li>
+</ul>
+
+          
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="#">PyTLQ</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="#">Docs</a> &raquo;</li>
+      
+    <li>PyTLQ: A Python Package for Solving Temporal Logic Queries</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document">
+            
+  <div class="section" id="pytlq-a-python-package-for-solving-temporal-logic-queries">
+<h1>PyTLQ: A Python Package for Solving Temporal Logic Queries<a class="headerlink" href="#pytlq-a-python-package-for-solving-temporal-logic-queries" title="Permalink to this headline">¶</a></h1>
+<p>PyTLQ is an original Python package for solving temporal logic queries, as
+defined by Chan [1] and corrected/extended by Samer and Veith [2, 3].</p>
+<p>Temporal logic query solving is an extension of model checking whose main aim
+is to understand a model as opposed to merely verifying its correctness. A
+temporal logic query basically consists of a temporal logic formula where
+some subformulas are replaced by the special symbol <code class="docutils literal"><span class="pre">?</span></code> representing a &#8220;hole&#8221;
+in the formula. The query solving problem then consists of finding the right
+subformula to fill the hole(s) and make the initial formula satisfied in the
+considered modeled system.</p>
+<p>PyTLQ can therefore be seen as an extension of the PyNuSMV model-checking
+library [4]. Within this framework, it uses the BDD-based model checking
+functionalities of the latter to efficiently implement temporal logic queries.</p>
+<p>PyTLQ uses <a class="reference external" href="http://lvl.info.ucl.ac.be/Tools/PyNuSMV">PyNuSMV</a>,
+<a class="reference external" href="https://pyparsing.wikispaces.com">PyParsing</a>, and
+<a class="reference external" href="http://click.pocoo.org/4/">Click</a> as dependencies.</p>
+<p>This documentation provides the complete package API as well as a guide
+which will get you started in working with PyTLQ.</p>
+<p><strong>Contents:</strong></p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="presentation.html">Presentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="getting-started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pytlq-api.html">PyTLQ API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="references.html">References</a></li>
+</ul>
+</div>
+<p><strong>Indexes:</strong></p>
+<ul class="simple">
+<li><a class="reference internal" href="genindex.html"><span>Index</span></a></li>
+<li><a class="reference internal" href="py-modindex.html"><span>Module Index</span></a></li>
+</ul>
+</div>
+
+
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="presentation.html" class="btn btn-neutral float-right" title="Presentation" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, Simon Thibert.
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'0.1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

@@ -1,0 +1,61 @@
+-- A Simple Microwave Oven.
+--
+-- Model of the microwave oven example [1], written by Simon Busard
+-- <simon.busard@uclouvain.be>, 22/07/2015
+--
+-- [1] E.M. Clarke, O. Grumberg, and D. Peled. Model checking. MIT press, 1999.
+
+MODULE main
+    VAR
+        start : boolean;
+        close : boolean;
+        heat  : boolean;
+        error : boolean;
+
+    INIT
+        !start & !close & !heat & !error
+
+    TRANS
+        !start & !close & !heat & !error ->
+            (next(start & !close & !heat & error) |
+             next(!start & close & !heat & !error))
+
+    TRANS
+        start & !close & !heat & error ->
+            (next(start & close & !heat & error))
+
+    TRANS
+        !start & close & !heat & !error ->
+            (next(!start & !close & !heat & !error) |
+             next(start & close & !heat & !error))
+
+    TRANS
+        start & close & !heat & error ->
+            (next(!start & close & !heat & !error) |
+             next(start & !close & !heat & error))
+
+    TRANS
+        start & close & !heat & !error ->
+            (next(start & close & heat & !error))
+    
+    TRANS
+        start & close & heat & !error ->
+            (next(!start & close & heat & !error))
+
+    TRANS
+        !start & close & heat & !error ->
+            (next(!start & close & heat & !error) |
+             next(!start & close & !heat & !error) |
+             next(!start & !close & !heat & !error))
+
+SPEC
+    AG (start -> AF heat)
+
+SPEC
+    AG (heat -> close)
+
+SPEC
+    AG (error -> EF heat)
+
+SPEC
+    AG ((close & !error & (start | heat)) -> AF heat)

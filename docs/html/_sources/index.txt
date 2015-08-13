@@ -1,0 +1,41 @@
+PyTLQ: A Python Package for Solving Temporal Logic Queries
+==========================================================
+
+PyTLQ is an original Python package for solving temporal logic queries, as
+defined by Chan [1] and corrected/extended by Samer and Veith [2, 3].
+
+Temporal logic query solving is an extension of model checking whose main aim
+is to understand a model as opposed to merely verifying its correctness. A
+temporal logic query basically consists of a temporal logic formula where
+some subformulas are replaced by the special symbol ``?`` representing a "hole"
+in the formula. The query solving problem then consists of finding the right
+subformula to fill the hole(s) and make the initial formula satisfied in the
+considered modeled system.
+
+PyTLQ can therefore be seen as an extension of the PyNuSMV model-checking
+library [4]. Within this framework, it uses the BDD-based model checking
+functionalities of the latter to efficiently implement temporal logic queries.
+
+PyTLQ uses `PyNuSMV <http://lvl.info.ucl.ac.be/Tools/PyNuSMV>`_,
+`PyParsing <https://pyparsing.wikispaces.com>`_, and
+`Click <http://click.pocoo.org/4/>`_ as dependencies.
+
+This documentation provides the complete package API as well as a guide
+which will get you started in working with PyTLQ.
+
+
+**Contents:**
+
+.. toctree::
+    :maxdepth: 1
+
+    presentation
+    getting-started
+    pytlq-api
+    references
+
+
+**Indexes:**
+
+* :ref:`genindex`
+* :ref:`modindex`

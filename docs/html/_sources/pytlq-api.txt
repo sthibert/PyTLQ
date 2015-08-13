@@ -1,0 +1,129 @@
+PyTLQ API
+=========
+
+.. automodule:: pytlq.__init__
+    :undoc-members:
+    :show-inheritance:
+
+-------------------------------------------------------------------------------
+
+:mod:`ast` module
+-----------------
+
+.. automodule:: pytlq.ast
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+-------------------------------------------------------------------------------
+
+:mod:`parser` module
+--------------------
+
+.. automodule:: pytlq.parser
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+-------------------------------------------------------------------------------
+
+:mod:`checker` module
+---------------------
+
+.. automodule:: pytlq.checker
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+-------------------------------------------------------------------------------
+
+:mod:`solver` module
+--------------------
+
+.. automodule:: pytlq.solver
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+-------------------------------------------------------------------------------
+
+:mod:`simplifier` module
+------------------------
+
+.. automodule:: pytlq.simplifier
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+-------------------------------------------------------------------------------
+
+:mod:`exception` module
+-----------------------
+
+.. automodule:: pytlq.exception
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+-------------------------------------------------------------------------------
+
+:mod:`utils` module
+-------------------
+
+.. automodule:: pytlq.utils
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+-------------------------------------------------------------------------------
+
+Example Script
+--------------
+
+Provided ``query``, ``model_path``, and ``order_path``, here is an example of a
+temporal logic query solver using the functions defined in the PyTLQ API.
+
+::
+
+    from pynusmv.init import init_nusmv
+    from pynusmv.glob import load, compute_model, prop_database
+
+    from pytlq.parser import parse_ctlq
+    from pytlq.checker import check_ctlqx
+    from pytlq.solver import solve_ctlqx
+    from pytlq.simplifier import project, simplify
+    from pytlq.utils import negation_normal_form
+
+    # Parse `query` and transform it in NNF.
+    ast = negation_normal_form(parse_ctlq(query))
+
+    # Check that `query` belongs to fragment CTLQx.
+    if check_ctlqx(ast):
+
+        # Initialize NuSMV.
+        with init_nusmv():
+
+            # Load model from `model_path`.
+            load(model_path)
+            # Check if an order file is given.
+            if order_path:
+                # Build model with pre-calculated variable ordering.
+                compute_model(variables_ordering=order_path)
+            else:
+                # Build model.
+                compute_model()
+            # Retrieve FSM of the model.
+            fsm = prop_database().master.bddFsm
+
+            # Solve `query` in `fsm`.
+            solution = solve_ctlqx(fsm, ast)
+
+            # Project solution.
+            projection = project(fsm, solution, <list_of_variables>)
+
+            # Simplify solution.
+            simplification = simplify(fsm, solution, <n>, <list_of_variables>)
+
+With ``<list_of_variables>`` representing the list of variables of interest (in
+the form of strings), and ``<n>`` the maximum number of variables that must
+appear in the subsets of the solution set.

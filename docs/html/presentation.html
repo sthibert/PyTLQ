@@ -1,0 +1,280 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Presentation &mdash; PyTLQ documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="PyTLQ documentation" href="index.html"/>
+        <link rel="next" title="Getting Started" href="getting-started.html"/>
+        <link rel="prev" title="PyTLQ: A Python Package for Solving Temporal Logic Queries" href="index.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        
+
+        
+          <a href="index.html" class="icon icon-home"> PyTLQ
+        
+
+        
+        </a>
+
+        
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+        
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+          
+          
+              <ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="">Presentation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#architecture-and-functionalities">Architecture and Functionalities</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#limitations">Limitations</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="getting-started.html">Getting Started</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="getting-started.html#input-language">Input Language</a></li>
+<li class="toctree-l2"><a class="reference internal" href="getting-started.html#installation">Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="getting-started.html#usage">Usage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="getting-started.html#example">Example</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="pytlq-api.html">PyTLQ API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="pytlq-api.html#module-pytlq.ast"><code class="docutils literal"><span class="pre">ast</span></code> module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pytlq-api.html#module-pytlq.parser"><code class="docutils literal"><span class="pre">parser</span></code> module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pytlq-api.html#module-pytlq.checker"><code class="docutils literal"><span class="pre">checker</span></code> module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pytlq-api.html#module-pytlq.solver"><code class="docutils literal"><span class="pre">solver</span></code> module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pytlq-api.html#module-pytlq.simplifier"><code class="docutils literal"><span class="pre">simplifier</span></code> module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pytlq-api.html#module-pytlq.exception"><code class="docutils literal"><span class="pre">exception</span></code> module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pytlq-api.html#module-pytlq.utils"><code class="docutils literal"><span class="pre">utils</span></code> module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pytlq-api.html#example-script">Example Script</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="references.html">References</a></li>
+</ul>
+
+          
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">PyTLQ</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+    <li>Presentation</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document">
+            
+  <div class="section" id="presentation">
+<h1>Presentation<a class="headerlink" href="#presentation" title="Permalink to this headline">¶</a></h1>
+<p>PyTLQ is an original Python package for solving temporal logic queries, as
+defined by Chan [1] and corrected/extended by Samer and Veith [2, 3]. It uses
+the BDD-based functionalities of the PyNuSMV model-checking library [4] to
+efficiently implement such queries.</p>
+<div class="section" id="architecture-and-functionalities">
+<h2>Architecture and Functionalities<a class="headerlink" href="#architecture-and-functionalities" title="Permalink to this headline">¶</a></h2>
+<p>The architecture of PyTLQ consists of four main modules, each one proposing
+specific functionalities.</p>
+<div class="figure align-center">
+<a class="reference internal image-reference" href="_images/architecture.png"><img alt="_images/architecture.png" src="_images/architecture.png" style="width: 12cm;" /></a>
+</div>
+<p><strong>Parsing CTL Queries</strong></p>
+<p>In the first place, the <em>parser</em> module takes care of the parsing process. It
+provides the <code class="docutils literal"><span class="pre">parse_ctlq</span></code> function to parse input strings representing CTL
+queries, and returns corresponding abstract syntax trees (ASTs).</p>
+<p><strong>Checking the Membership to Fragment CTLQx</strong></p>
+<p>Secondly, the <em>checker</em> module provides the <code class="docutils literal"><span class="pre">check_ctlqx</span></code> and
+<code class="docutils literal"><span class="pre">non_terminal_ctlqx</span></code> functions to verify whether the AST-based CTL query
+belongs to the syntactic fragment CTLQx [3] or not. It follows corresponding
+production rules to determine the membership to the fragment, and returns a
+truth value.</p>
+<p><strong>Solving CTL Queries</strong></p>
+<p>Then, the <em>solver</em> module - which is the core of PyTLQ - provides the
+<code class="docutils literal"><span class="pre">solve_ctlqx</span></code> function that implements the extended Chan algorithm [3] to
+solve CTL queries that belong to fragment CTLQx in the considered SMV model.
+The function computes the unique set of solution states that represents an
+exact solution to the query in the model (if there is one).</p>
+<p><strong>Simplifying Solutions</strong></p>
+<p>Finally, if a simplification is required, the <em>simplifier</em> module takes care
+to transform the set of solution states - which is likely to be too complex -
+in a more understandable form. Practically, it provides the <code class="docutils literal"><span class="pre">simplify</span></code>
+function that implements Chan&#8217;s approximate conjunctive decomposition [1], and
+the <code class="docutils literal"><span class="pre">project</span></code> function which is a more general function used to project the
+solution on a list of variables of interest (that is, a subset of all the
+variables).</p>
+</div>
+<div class="section" id="limitations">
+<h2>Limitations<a class="headerlink" href="#limitations" title="Permalink to this headline">¶</a></h2>
+<p>PyTLQ has four main limitations:</p>
+<ol class="arabic simple">
+<li>Since the development of the main feature of PyTLQ - that is, the CTL query
+solver - entirely relies on Samer and Veith&#8217;s extended Chan algorithm, PyTLQ
+suffers form the main limitation outlined in their paper (that is, the CTL
+queries must belong to CTLQx fragment). Moreover, PyTLQ only considers CTL
+queries, and not queries formed with other temporal logics. Finally, PyTLQ
+only accepts queries with one occurrence of a single distinct placeholder.</li>
+<li>The error management being a limitation in PyNuSMV, and PyParsing raising
+somewhat unclear exceptions, the standalone script of PyTLQ suffers from
+poor error explanations.</li>
+<li>The projection and the adapted version of Chan&#8217;s approximate conjunctive
+decomposition algorithms cannot provide a simplified visualization of
+boolean formulas. For example, a typical output has the following form:</li>
+</ol>
+<div class="highlight-python"><div class="highlight"><pre>((heat = TRUE  &amp; start = TRUE) |
+ (heat = FALSE &amp; start = TRUE) |
+ (heat = TRUE  &amp; start = FALSE))
+</pre></div>
+</div>
+<div class="line-block">
+<div class="line">Instead of being simply represented as:</div>
+<div class="line"><br /></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">(</span><span class="n">heat</span> <span class="o">|</span> <span class="n">start</span><span class="p">)</span>
+</pre></div>
+</div>
+<ol class="arabic simple" start="4">
+<li>In addition to the previous limitation, these two algorithms do not take the
+<code class="docutils literal"><span class="pre">DEFINE</span></code> variables of the SMV models into account. <code class="docutils literal"><span class="pre">DEFINE</span></code> declarations
+are used to make descriptions more concise in SMV models, thanks to a symbol
+that is associated with a common expression. PyNuSMV not allowing to
+retrieve those variables, we cannot take them into account in the projection
+and simplification algorithms. Solutions in those cases are therefore not
+&#8220;projectable/restrictable&#8221; to such variables and we might consequently loose
+understandability.</li>
+</ol>
+</div>
+</div>
+
+
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="getting-started.html" class="btn btn-neutral float-right" title="Getting Started" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="index.html" class="btn btn-neutral" title="PyTLQ: A Python Package for Solving Temporal Logic Queries" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, Simon Thibert.
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'0.1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

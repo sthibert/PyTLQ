@@ -1,0 +1,340 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Getting Started &mdash; PyTLQ documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="PyTLQ documentation" href="index.html"/>
+        <link rel="next" title="PyTLQ API" href="pytlq-api.html"/>
+        <link rel="prev" title="Presentation" href="presentation.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        
+
+        
+          <a href="index.html" class="icon icon-home"> PyTLQ
+        
+
+        
+        </a>
+
+        
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+        
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+          
+          
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="presentation.html">Presentation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="presentation.html#architecture-and-functionalities">Architecture and Functionalities</a></li>
+<li class="toctree-l2"><a class="reference internal" href="presentation.html#limitations">Limitations</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="current reference internal" href="">Getting Started</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#input-language">Input Language</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#installation">Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#usage">Usage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#example">Example</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="pytlq-api.html">PyTLQ API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="pytlq-api.html#module-pytlq.ast"><code class="docutils literal"><span class="pre">ast</span></code> module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pytlq-api.html#module-pytlq.parser"><code class="docutils literal"><span class="pre">parser</span></code> module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pytlq-api.html#module-pytlq.checker"><code class="docutils literal"><span class="pre">checker</span></code> module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pytlq-api.html#module-pytlq.solver"><code class="docutils literal"><span class="pre">solver</span></code> module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pytlq-api.html#module-pytlq.simplifier"><code class="docutils literal"><span class="pre">simplifier</span></code> module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pytlq-api.html#module-pytlq.exception"><code class="docutils literal"><span class="pre">exception</span></code> module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pytlq-api.html#module-pytlq.utils"><code class="docutils literal"><span class="pre">utils</span></code> module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pytlq-api.html#example-script">Example Script</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="references.html">References</a></li>
+</ul>
+
+          
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">PyTLQ</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+    <li>Getting Started</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document">
+            
+  <div class="section" id="getting-started">
+<h1>Getting Started<a class="headerlink" href="#getting-started" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="input-language">
+<h2>Input Language<a class="headerlink" href="#input-language" title="Permalink to this headline">¶</a></h2>
+<p>The syntax of CTL queries recognized by PyTLQ is as follows:</p>
+<div class="highlight-python"><div class="highlight"><pre>ctl_query ::= ?                               -- placeholder
+            | True                            -- true constant
+            | False                           -- false constant
+            | &#39;atom&#39;                          -- atomic proposition
+            | ( ctl_query )                   -- parentheses
+            | ~ ctl_query                     -- logical not
+            | ctl_query &amp; ctl_query           -- logical and
+            | ctl_query | ctl_query           -- logical or
+            | ctl_query -&gt; ctl_query          -- logical implies
+            | ctl_query &lt;-&gt; ctl_query         -- logical equivalence
+            | EX ctl_query                    -- exists next state
+            | EG ctl_query                    -- exists globally
+            | EF ctl_query                    -- exists eventually
+            | E [ ctl_query U ctl_query ]     -- exists until
+            | E [ ctl_query oU ctl_query ]    -- exists overlapping until
+            | E [ ctl_query dU ctl_query ]    -- exists disjoint until
+            | E [ ctl_query W ctl_query ]     -- exists weak until
+            | E [ ctl_query oW ctl_query ]    -- exists overlapping weak until
+            | E [ ctl_query dW ctl_query ]    -- exists disjoint weak until
+            | AX ctl_query                    -- forall next state
+            | AG ctl_query                    -- forall globally
+            | AF ctl_query                    -- forall eventually
+            | A [ ctl_query U ctl_query ]     -- forall until
+            | A [ ctl_query oU ctl_query ]    -- forall overlapping until
+            | A [ ctl_query dU ctl_query ]    -- forall disjoint until
+            | A [ ctl_query W ctl_query ]     -- forall weak until
+            | A [ ctl_query oW ctl_query ]    -- forall overlapping weak until
+            | A [ ctl_query dW ctl_query ]    -- forall disjoint weak until
+</pre></div>
+</div>
+<p>Note that the fragment CTLQx does not allow all these operators [3].</p>
+</div>
+<div class="section" id="installation">
+<h2>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h2>
+<p><em>Remark. Make sure you are using Python 3 before installing PyTLQ.</em></p>
+<div class="highlight-python"><div class="highlight"><pre>$ pip install https://github.com/sthibert/PyTLQ/zipball/master
+</pre></div>
+</div>
+<p>Note that PyParsing and Click are <strong>automatically</strong> installed with PyTLQ, but
+PyNuSMV must be <strong>manually</strong> installed before using PyTLQ.</p>
+</div>
+<div class="section" id="usage">
+<h2>Usage<a class="headerlink" href="#usage" title="Permalink to this headline">¶</a></h2>
+<p>PyTLQ is meant to be called from the command line. The usage is:</p>
+<div class="highlight-python"><div class="highlight"><pre>$ pytlq &lt;model_path&gt; &lt;query&gt; [--order &lt;order_path&gt;]
+</pre></div>
+</div>
+<ul class="simple">
+<li><code class="docutils literal"><span class="pre">&lt;model_path&gt;</span></code> represents the path to the SMV model you want to analyse.</li>
+<li><code class="docutils literal"><span class="pre">&lt;query&gt;</span></code> represents your CTL query as a string that follows the input
+language defined in <a class="reference internal" href="#input-language">Input Language</a>.</li>
+<li><code class="docutils literal"><span class="pre">&lt;order_path&gt;</span></code> is an optional argument that allows you to provide an order
+file (.ord) to PyTLQ, in order to compute the considered SMV model
+efficiently.</li>
+</ul>
+<p>This command computes the unique set of solution states that represents an
+exact solution to <code class="docutils literal"><span class="pre">query</span></code> in the system defined in <code class="docutils literal"><span class="pre">model_path</span></code> (if there
+is one). Then, you have the choice of projecting the solution on a subset of
+the variables of the system, simplifying the solution thanks to an approximate
+conjunctive decomposition, or you can quit PyTLQ.</p>
+<p>To display the usage instructions, just enter:</p>
+<div class="highlight-python"><div class="highlight"><pre>$ pytlq --help
+</pre></div>
+</div>
+</div>
+<div class="section" id="example">
+<h2>Example<a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h2>
+<p>Consider the SMV model of Clarke, Grumberg and Peled&#8217;s microwave oven example
+[5], found in <code class="docutils literal"><span class="pre">examples/microwave.smv</span></code>.</p>
+<p>The microwave oven functioning is informally specified as follows:</p>
+<div class="line-block">
+<div class="line">&#8220;To cook food in the oven, open the door, put the food inside, and close the</div>
+<div class="line">door. Do not put metal containers in the oven. Press the start button. The</div>
+<div class="line">oven will warmup for 30 seconds, and then it will start cooking. When the</div>
+<div class="line">cooking is done, the oven will stop. The oven will stop also whenever the</div>
+<div class="line">door is opened during cooking. If the oven is started while the door is</div>
+<div class="line">open, an error will occur, and the oven will not heat. In such a case, the</div>
+<div class="line">reset button may be used.&#8221;</div>
+<div class="line">(Source: <a class="reference external" href="https://users.dimi.uniud.it/~angelo.montanari/MCclasses.pdf">https://users.dimi.uniud.it/~angelo.montanari/MCclasses.pdf</a>)</div>
+<div class="line"><br /></div>
+</div>
+<p>Now, imagine we want to discover what makes the oven eventually heat without
+using a trial-and-error approach. To do that, we can express the following CTL
+query: <code class="docutils literal"><span class="pre">&quot;AG</span> <span class="pre">(?</span> <span class="pre">-&gt;</span> <span class="pre">AF</span> <span class="pre">'heat')&quot;</span></code>, which asks &#8220;What can guarantee that the oven
+will heat?&#8221; We then launch PyTLQ with the path of the microwave oven SMV model
+and this CTL query as inputs:</p>
+<div class="highlight-python"><div class="highlight"><pre>$ pytlq examples/microwave.smv &quot;AG (? -&gt; AF &#39;heat&#39;)&quot;
+</pre></div>
+</div>
+<p>This command will output the unique set of solution states that represents an
+exact solution to <code class="docutils literal"><span class="pre">&quot;AG</span> <span class="pre">(?</span> <span class="pre">-&gt;</span> <span class="pre">AF</span> <span class="pre">'heat')&quot;</span></code> in the microwave oven model:</p>
+<div class="highlight-python"><div class="highlight"><pre>Solution states:
+{{&#39;close&#39;: &#39;TRUE&#39;, &#39;error&#39;: &#39;FALSE&#39;, &#39;heat&#39;: &#39;TRUE&#39;, &#39;start&#39;: &#39;FALSE&#39;},
+ {&#39;close&#39;: &#39;TRUE&#39;, &#39;error&#39;: &#39;FALSE&#39;, &#39;heat&#39;: &#39;FALSE&#39;, &#39;start&#39;: &#39;TRUE&#39;},
+ {&#39;close&#39;: &#39;TRUE&#39;, &#39;error&#39;: &#39;FALSE&#39;, &#39;heat&#39;: &#39;TRUE&#39;, &#39;start&#39;: &#39;TRUE&#39;}}
+
+What do you want to do?
+  1. Project the solution on a subset of the variables
+  2. Simplify the solution according to Chan&#39;s approximate conjunctive decomposition
+  3. Quit PyTLQ
+Your choice [3]:
+</pre></div>
+</div>
+<p>Suppose now that we want to simplify the solution. In this case, we just type
+&#8220;2&#8221;. Two questions will appear in the terminal to gather the additional
+information needed by the simplification algorithm:</p>
+<div class="highlight-python"><div class="highlight"><pre>Please enter the maximum number of variables that must appear in the conjuncts of the simplification [1]:
+Please enter the list of variables of interest, separated by commas [all the variables]:
+</pre></div>
+</div>
+<p>Here, we enter &#8220;2&#8221; for the first question and just hit the return key for the
+second (that is, we consider all the variables of the model). We then obtain
+the following approximate conjunctive decomposition:</p>
+<div class="highlight-python"><div class="highlight"><pre>Approximate conjunctive decomposition:
+(error = FALSE)
+&amp; (close = TRUE)
+&amp; ((heat = FALSE &amp; start = TRUE) | (heat = TRUE &amp; start = TRUE) | (heat = TRUE &amp; start = FALSE))
+
+What do you want to do?
+  1. Project the solution on a subset of the variables
+  2. Simplify the solution according to Chan&#39;s approximate conjunctive decomposition
+  3. Quit PyTLQ
+Your choice [3]:
+</pre></div>
+</div>
+<p>This output means that, to ensure that the oven will eventually heat, the door
+must be closed, there must be no error, and either the start button is pushed
+or the oven already heats.</p>
+<p>In conclusion, with only one temporal logic query, we just discovered the
+following invariant in the microwave oven model:
+<code class="docutils literal"><span class="pre">AG</span> <span class="pre">((close</span> <span class="pre">&amp;</span> <span class="pre">!error</span> <span class="pre">&amp;</span> <span class="pre">(start</span> <span class="pre">|</span> <span class="pre">heat))</span> <span class="pre">-&gt;</span> <span class="pre">AF</span> <span class="pre">heat)</span></code>.</p>
+<p>Finally, if you want to quit PyTLQ, type &#8220;3&#8221; or simply hit the return key.</p>
+</div>
+</div>
+
+
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="pytlq-api.html" class="btn btn-neutral float-right" title="PyTLQ API" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="presentation.html" class="btn btn-neutral" title="Presentation" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, Simon Thibert.
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'0.1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

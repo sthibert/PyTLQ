@@ -1,0 +1,18 @@
+References
+==========
+
+[1] Chan, William. "Temporal-Logic Queries." Computer Aided Verification.
+Springer Berlin Heidelberg, 2000.
+
+[2] Samer, Marko, and Helmut Veith. "Validity of CTL Queries Revisited."
+Computer Science Logic. Springer Berlin Heidelberg, 2003.
+
+[3] Samer, Marko, and Helmut Veith. "Deterministic CTL Query Solving."
+Temporal Representation and Reasoning, 2005. TIME 2005. 12th International
+Symposium on. IEEE, 2005.
+
+[4] Busard, Simon, and Charles Pecheur. "PyNuSMV: NuSMV as a Python Library."
+NASA Formal Methods. Springer Berlin Heidelberg, 2013.
+
+[5] Clarke, Edmund M., Orna Grumberg, and Doron Peled. Model checking.
+MIT press, 1999.
