@@ -66,7 +66,7 @@ Documentation
 
 The full documentation can be found on:
 
-    docs/html/index.html
+    doc/html/index.html
 
 
 License
