@@ -87,7 +87,7 @@ PyTLQ has four main limitations:
    ``DEFINE`` variables of the SMV models into account. ``DEFINE`` declarations
    are used to make descriptions more concise in SMV models, thanks to a symbol
    that is associated with a common expression. PyNuSMV not allowing to
-   retrieve those variables, we cannot take them into account in the projection
-   and simplification algorithms. Solutions in those cases are therefore not
-   "projectable/restrictable" to such variables and we might consequently loose
-   understandability.
+   retrieve those variables, we cannot consider them in the projection and
+   simplification algorithms. Solutions are therefore not
+   "projectable/restrictable" to such variables, and the algorithms might
+   consequently lose a bit of their power.
