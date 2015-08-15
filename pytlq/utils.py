@@ -154,195 +154,195 @@ def bdd_to_set(fsm, bdd):
 # =============================================================================
 
 def _double_negation(subformula):
-    """Take care of the double negation in subformula."""
+    """Take care of the double negation in `subformula`."""
     if isinstance(subformula, Not):
         return subformula.child
     else:
         return Not(subformula)
 
 
-def negation_normal_form(query):
+def negation_normal_form(ast):
     """
-    Transform `query` in negation normal form.
+    Transform `ast` in negation normal form.
 
-    :param query: an AST-based CTL query
-    :return: an AST-based CTL query in negation normal form
+    :param ast: an AST-based CTL formula/query
+    :return: an AST-based CTL formula/query in negation normal form
 
     :raise: a :exc:`NotImplementedError` if an operator is not implemented
     """
-    if (isinstance(query, Placeholder) or isinstance(query, TrueExp)
-            or isinstance(query, FalseExp) or isinstance(query, Atom)):
-        return query
+    if (isinstance(ast, Placeholder) or isinstance(ast, TrueExp)
+            or isinstance(ast, FalseExp) or isinstance(ast, Atom)):
+        return ast
 
-    elif (isinstance(query, AX) or isinstance(query, AG)
-          or isinstance(query, AF) or isinstance(query, EX)
-          or isinstance(query, EG) or isinstance(query, EF)):
-        return type(query)(negation_normal_form(query.child))
+    elif (isinstance(ast, AX) or isinstance(ast, AG)
+          or isinstance(ast, AF) or isinstance(ast, EX)
+          or isinstance(ast, EG) or isinstance(ast, EF)):
+        return type(ast)(negation_normal_form(ast.child))
 
-    elif (isinstance(query, And) or isinstance(query, Or)
-          or isinstance(query, AU) or isinstance(query, AW)
-          or isinstance(query, EU) or isinstance(query, EW)
-          or isinstance(query, AoU) or isinstance(query, AoW)
-          or isinstance(query, EoU) or isinstance(query, EoW)
-          or isinstance(query, AdU) or isinstance(query, AdW)
-          or isinstance(query, EdU) or isinstance(query, EdW)):
-        return type(query)(negation_normal_form(query.left),
-                           negation_normal_form(query.right))
+    elif (isinstance(ast, And) or isinstance(ast, Or)
+          or isinstance(ast, AU) or isinstance(ast, AW)
+          or isinstance(ast, EU) or isinstance(ast, EW)
+          or isinstance(ast, AoU) or isinstance(ast, AoW)
+          or isinstance(ast, EoU) or isinstance(ast, EoW)
+          or isinstance(ast, AdU) or isinstance(ast, AdW)
+          or isinstance(ast, EdU) or isinstance(ast, EdW)):
+        return type(ast)(negation_normal_form(ast.left),
+                         negation_normal_form(ast.right))
 
     # phi -> psi <=> !phi | psi
-    elif isinstance(query, Imply):
-        return Or(negation_normal_form(Not(query.left)),
-                  negation_normal_form(query.right))
+    elif isinstance(ast, Imply):
+        return Or(negation_normal_form(Not(ast.left)),
+                  negation_normal_form(ast.right))
 
     # phi <-> psi <=> (!phi | psi) & (phi | !psi)
-    elif isinstance(query, Iff):
-        return And(Or(negation_normal_form(Not(query.left)),
-                      negation_normal_form(query.right)),
-                   Or(negation_normal_form(query.left),
-                      negation_normal_form(Not(query.right))))
+    elif isinstance(ast, Iff):
+        return And(Or(negation_normal_form(Not(ast.left)),
+                      negation_normal_form(ast.right)),
+                   Or(negation_normal_form(ast.left),
+                      negation_normal_form(Not(ast.right))))
 
-    elif isinstance(query, Not):
-        if (isinstance(query.child, Placeholder)
-                or isinstance(query.child, TrueExp)
-                or isinstance(query.child, FalseExp)
-                or isinstance(query.child, Atom)):
-            return query
+    elif isinstance(ast, Not):
+        if (isinstance(ast.child, Placeholder)
+                or isinstance(ast.child, TrueExp)
+                or isinstance(ast.child, FalseExp)
+                or isinstance(ast.child, Atom)):
+            return ast
 
         # !(!phi) <=> phi
-        elif isinstance(query.child, Not):
-            return negation_normal_form(query.child.child)
+        elif isinstance(ast.child, Not):
+            return negation_normal_form(ast.child.child)
 
-        elif len(query.child) == 1:
-            child = _double_negation(query.child.child)
+        elif len(ast.child) == 1:
+            child = _double_negation(ast.child.child)
 
             # !(EX phi) <=> AX !phi
-            if isinstance(query.child, EX):
+            if isinstance(ast.child, EX):
                 return AX(negation_normal_form(child))
 
             # !(AX phi) <=> EX !phi
-            elif isinstance(query.child, AX):
+            elif isinstance(ast.child, AX):
                 return EX(negation_normal_form(child))
 
             # !(EF phi) <=> AG !phi
-            elif isinstance(query.child, EF):
+            elif isinstance(ast.child, EF):
                 return AG(negation_normal_form(child))
 
             # !(AF phi) <=> EG !phi
-            elif isinstance(query.child, AF):
+            elif isinstance(ast.child, AF):
                 return EG(negation_normal_form(child))
 
             # !(EG phi) <=> AF !phi
-            elif isinstance(query.child, EG):
+            elif isinstance(ast.child, EG):
                 return AF(negation_normal_form(child))
 
             # !(AG phi) <=> EF !phi
-            elif isinstance(query.child, AG):
+            elif isinstance(ast.child, AG):
                 return EF(negation_normal_form(child))
 
             else:
                 raise NotImplementedError(NOT_IMPLEMENTED_MSG
-                                          .format(op=type(query)))
+                                          .format(op=type(ast)))
 
-        elif len(query.child) == 2:
-            left = _double_negation(query.child.left)
-            right = _double_negation(query.child.right)
+        elif len(ast.child) == 2:
+            left = _double_negation(ast.child.left)
+            right = _double_negation(ast.child.right)
 
             # !(phi & psi) <=> !phi | !psi
-            if isinstance(query.child, And):
+            if isinstance(ast.child, And):
                 return Or(negation_normal_form(left),
                           negation_normal_form(right))
 
             # !(phi | psi) <=> !phi & !psi
-            elif isinstance(query.child, Or):
+            elif isinstance(ast.child, Or):
                 return And(negation_normal_form(left),
                            negation_normal_form(right))
 
             # !(phi -> psi) <=> phi & !psi
-            elif isinstance(query.child, Imply):
-                return And(negation_normal_form(query.child.left),
+            elif isinstance(ast.child, Imply):
+                return And(negation_normal_form(ast.child.left),
                            negation_normal_form(right))
 
             # !(phi <-> psi) <=> (phi & !psi) | (!phi & psi)
-            elif isinstance(query.child, Iff):
-                return Or(And(negation_normal_form(query.child.left),
+            elif isinstance(ast.child, Iff):
+                return Or(And(negation_normal_form(ast.child.left),
                               negation_normal_form(right)),
                           And(negation_normal_form(left),
-                              negation_normal_form(query.child.right)))
+                              negation_normal_form(ast.child.right)))
 
             # !(E[phi U psi]) <=> A[!psi oW !phi]
-            elif isinstance(query.child, EU):
+            elif isinstance(ast.child, EU):
                 return AoW(negation_normal_form(right),
                            negation_normal_form(left))
 
             # !(A[phi U psi]) <=> E[!psi oW !phi]
-            elif isinstance(query.child, AU):
+            elif isinstance(ast.child, AU):
                 return EoW(negation_normal_form(right),
                            negation_normal_form(left))
 
             # !(E[phi W psi]) <=> A[!psi oU !phi]
-            elif isinstance(query.child, EW):
+            elif isinstance(ast.child, EW):
                 return AoU(negation_normal_form(right),
                            negation_normal_form(left))
 
             # !(A[phi W psi]) <=> E[!psi oU !phi]
-            elif isinstance(query.child, AW):
+            elif isinstance(ast.child, AW):
                 return EoU(negation_normal_form(right),
                            negation_normal_form(left))
 
             # !(E[phi oU psi]) <=> A[!psi W !phi]
-            elif isinstance(query.child, EoU):
+            elif isinstance(ast.child, EoU):
                 return AW(negation_normal_form(right),
                           negation_normal_form(left))
 
             # !(A[phi oU psi]) <=> E[!psi W !phi]
-            elif isinstance(query.child, AoU):
+            elif isinstance(ast.child, AoU):
                 return EW(negation_normal_form(right),
                           negation_normal_form(left))
 
             # !(E[phi oW psi]) <=> A[!psi U !phi]
-            elif isinstance(query.child, EoW):
+            elif isinstance(ast.child, EoW):
                 return AU(negation_normal_form(right),
                           negation_normal_form(left))
 
             # !(A[phi oW psi]) <=> E[!psi U !phi]
-            elif isinstance(query.child, AoW):
+            elif isinstance(ast.child, AoW):
                 return EU(negation_normal_form(right),
                           negation_normal_form(left))
 
             # !(E[phi dU psi]) <=> A[(phi | !psi) oW !phi]
-            elif isinstance(query.child, EdU):
-                return AoW(Or(negation_normal_form(query.child.left),
+            elif isinstance(ast.child, EdU):
+                return AoW(Or(negation_normal_form(ast.child.left),
                               negation_normal_form(right)),
                            negation_normal_form(left))
 
             # !(A[phi dU psi]) <=> E[(phi | !psi) oW !phi]
-            elif isinstance(query.child, AdU):
-                return EoW(Or(negation_normal_form(query.child.left),
+            elif isinstance(ast.child, AdU):
+                return EoW(Or(negation_normal_form(ast.child.left),
                               negation_normal_form(right)),
                            negation_normal_form(left))
 
             # !(E[phi dW psi]) <=> A[(phi | !psi) oU !phi]
-            elif isinstance(query.child, EdW):
-                return AoU(Or(negation_normal_form(query.child.left),
+            elif isinstance(ast.child, EdW):
+                return AoU(Or(negation_normal_form(ast.child.left),
                               negation_normal_form(right)),
                            negation_normal_form(left))
 
             # !(A[phi dW psi]) <=> E[(phi | !psi) oU !phi]
-            elif isinstance(query.child, AdW):
-                return EoU(Or(negation_normal_form(query.child.left),
+            elif isinstance(ast.child, AdW):
+                return EoU(Or(negation_normal_form(ast.child.left),
                               negation_normal_form(right)),
                            negation_normal_form(left))
 
             else:
                 raise NotImplementedError(NOT_IMPLEMENTED_MSG
-                                          .format(op=type(query)))
+                                          .format(op=type(ast)))
 
         else:
             raise NotImplementedError(NOT_IMPLEMENTED_MSG
-                                      .format(op=type(query)))
+                                      .format(op=type(ast)))
 
     else:
-        raise NotImplementedError(NOT_IMPLEMENTED_MSG.format(op=type(query)))
+        raise NotImplementedError(NOT_IMPLEMENTED_MSG.format(op=type(ast)))
 
 
 def replace_placeholder(query, formula):

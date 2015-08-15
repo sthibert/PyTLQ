@@ -57,10 +57,11 @@ PyTLQ has four main limitations:
 
 1. Since the development of the main feature of PyTLQ - that is, the CTL query
    solver - entirely relies on Samer and Veith's extended Chan algorithm, PyTLQ
-   suffers form the main limitation outlined in their paper (that is, the CTL
-   queries must belong to CTLQx fragment). Moreover, PyTLQ only considers CTL
-   queries, and not queries formed with other temporal logics. Finally, PyTLQ
-   only accepts queries with one occurrence of a single distinct placeholder.
+   suffers from the main limitation outlined in their paper (that is, the CTL
+   queries must belong to the CTLQx fragment). Moreover, PyTLQ only considers
+   CTL queries, and not queries formed with other temporal logics. Finally,
+   PyTLQ only accepts queries with one occurrence of a single distinct
+   placeholder.
 
 2. The error management being a limitation in PyNuSMV, and PyParsing raising
    somewhat unclear exceptions, the standalone script of PyTLQ suffers from

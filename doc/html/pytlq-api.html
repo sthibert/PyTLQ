@@ -640,15 +640,15 @@ internals, and utilities for manipulating CTL formulas/queries.</p>
 
 <dl class="function">
 <dt id="pytlq.utils.negation_normal_form">
-<code class="descclassname">pytlq.utils.</code><code class="descname">negation_normal_form</code><span class="sig-paren">(</span><em>query</em><span class="sig-paren">)</span><a class="headerlink" href="#pytlq.utils.negation_normal_form" title="Permalink to this definition">¶</a></dt>
-<dd><p>Transform <cite>query</cite> in negation normal form.</p>
+<code class="descclassname">pytlq.utils.</code><code class="descname">negation_normal_form</code><span class="sig-paren">(</span><em>ast</em><span class="sig-paren">)</span><a class="headerlink" href="#pytlq.utils.negation_normal_form" title="Permalink to this definition">¶</a></dt>
+<dd><p>Transform <cite>ast</cite> in negation normal form.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>query</strong> &#8211; an AST-based CTL query</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>ast</strong> &#8211; an AST-based CTL formula/query</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">an AST-based CTL query in negation normal form</td>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">an AST-based CTL formula/query in negation normal form</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Raise:</th><td class="field-body">a <code class="xref py py-exc docutils literal"><span class="pre">NotImplementedError</span></code> if an operator is not implemented</td>
 </tr>
