@@ -62,8 +62,14 @@ def cli(model_path, query, order):
 
             # Display solution.
             click.echo('Solution states:')
-            if solution.is_false():
+            if not solution:
+                click.echo('No solution')
+                # Quit PyTLQ.
+                sys.exit()
+            elif solution.is_false():
                 click.echo('False')
+                # Quit PyTLQ.
+                sys.exit()
             else:
                 size = fsm.count_states(solution)
                 if size > 100:
@@ -73,11 +79,6 @@ def cli(model_path, query, order):
                         pprint(bdd_to_set(fsm, solution))
                 else:
                     pprint(bdd_to_set(fsm, solution))
-
-            # Check if further manipulations are possible.
-            if solution.is_false():
-                # Quit PyTLQ.
-                sys.exit()
 
             # Ask for further manipulations.
             while True:

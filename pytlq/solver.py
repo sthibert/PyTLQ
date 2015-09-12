@@ -200,7 +200,7 @@ def solve_ctlqx(fsm, query):
     :param fsm: the concerned FSM
     :param query: an AST-based CTL query **that belongs to fragment CTLQx**
     :return: the unique set of solution states of `fsm` to `query` at the
-        initial states of `fsm`
+        initial states of `fsm` if there is a solution, None otherwise
     :rtype: :class:`pynusmv.dd.BDD`
 
     .. note:: The characteristic function of the output is an exact solution to
@@ -208,4 +208,9 @@ def solve_ctlqx(fsm, query):
     .. note:: See :func:`pytlq.checker.check_ctlqx` for the verification that
         `query` belongs to fragment CTLQx.
     """
-    return _e_sol(fsm, query, fsm.init)
+    if (eval_ctl_spec(fsm, ast_to_spec(replace_placeholder(query, TrueExp())))
+            .is_true()):
+        return _e_sol(fsm, query, fsm.init)
+
+    else:
+        return None
